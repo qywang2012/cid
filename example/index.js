@@ -3,7 +3,9 @@ const syncComplete = (res) => {
   updateProfileData(window.box)
 }
 
-Box.create(window.ethereum).then(box => {
+const provider = window.conflux //window.ethereum|window.conflux
+
+Box.create(provider).then(box => {
   window.box = box
   bauth.disabled = false
   openThread.disabled = false
@@ -11,7 +13,7 @@ Box.create(window.ethereum).then(box => {
 
 bauth.addEventListener('click', event => {
 
-  window.ethereum.enable().then(addresses => {
+  provider.enable().then(addresses => {
     window.box.auth([], { address: addresses[0] }).then(() => {
       box.onSyncDone(syncComplete)
       console.log('authed')
